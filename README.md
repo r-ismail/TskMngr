@@ -141,3 +141,43 @@ composer test             # config:clear + pint check + phpstan + tests
 composer ci:check         # npm check + vue-tsc + full test script
 npm run build             # production frontend build
 ```
+
+## Project structure
+
+```bash
+app/                 # Laravel application logic
+bootstrap/           # Bootstrap files
+config/              # App configuration
+database/            # Migrations, seeders, and DB setup
+public/              # Public web assets
+resources/
+  js/                # Vue components, pages, composables, layouts
+  views/             # Blade views
+routes/              # Route definitions (web, api, ai for MCP, settings)
+storage/             # Runtime-generated files
+tests/               # Automated tests (Pest)
+```
+
+## Useful commands
+
+```bash
+php artisan serve
+npm run dev
+npm run build
+php artisan test
+composer run lint
+php artisan config:clear
+```
+
+## Notes
+
+This repo feels like a practical foundation rather than a gimmick-heavy starter.
+It has the pieces a real app needs: auth, team-aware structure, a dashboard,
+and a clean frontend stack. If you are using it as a base, the easiest path is to
+build the actual product features on top of the existing auth and dashboard
+structure instead of reworking the whole app from scratch.
+
+## License
+
+This project is open-source and uses the MIT license.
+
