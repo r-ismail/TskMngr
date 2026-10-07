@@ -132,6 +132,21 @@ Local (stdio) endpoint for Claude Desktop / Cursor (`mcp.json`):
 }
 ```
 
+### Debugging with the MCP Inspector
+
+`php artisan mcp:inspector <handle>` currently fails with
+_"Both --config and --server must be provided together"_ — Laravel passes only
+`--config`, but newer `@modelcontextprotocol/inspector` releases require
+`--server` as well. Until this is fixed upstream in `laravel/mcp`, use the
+included workaround script (same config, adds the missing flag):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\inspect.ps1 tasks
+```
+
+Then open the printed `http://localhost:6274/?MCP_PROXY_AUTH_TOKEN=...` link and
+call `get-open-tasks-tool` with `{ "user_id": 1 }`.
+
 > Security note: the tool returns tasks for any supplied `user_id`. The web route is
 > protected with `auth:sanctum`; the stdio server intentionally has direct access
 > (standard for local MCP servers).
