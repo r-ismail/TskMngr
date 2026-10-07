@@ -34,7 +34,7 @@ const mainNavItems = computed<NavItem[]>(() => [
         href: dashboardUrl.value,
         icon: LayoutGrid,
     },
-        {
+    {
         title: 'About',
         href: aboutUrl.value,
         icon: BookOpen,
