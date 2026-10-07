@@ -37,7 +37,5 @@ yarn-error.log
 /.mcp.json
 /AGENTS.md
 /CLAUDE.md
-/boost.json
 /opencode.json
 /opencode.jsonc
-.npmrc
