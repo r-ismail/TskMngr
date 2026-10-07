@@ -132,6 +132,19 @@ Local (stdio) endpoint for Claude Desktop / Cursor (`mcp.json`):
 }
 ```
 
+### In-app MCP panel
+
+The sidebar links to **`/mcp`** — an authenticated MCP panel that:
+
+- discovers the server live via `tools/list` (name, version, registered tools),
+- shows both transports (`POST /mcp/tasks` with `auth:sanctum`, local `mcp:start tasks`),
+- includes a **tool console** that calls tools against the real MCP endpoint and renders
+  `structuredContent` / text replies,
+- provides ready-to-copy `mcp.json` and HTTP snippets for connecting AI clients.
+
+The dashboard additionally embeds an **"Open tasks · via MCP"** widget that renders your
+open tasks through the same `get-open-tasks-tool`.
+
 ### Debugging with the MCP Inspector
 
 `php artisan mcp:inspector <handle>` currently fails with

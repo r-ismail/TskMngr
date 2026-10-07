@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import OpenTasksMcpWidget from '@/components/OpenTasksMcpWidget.vue';
 import PendingInvitationsModal from '@/components/PendingInvitationsModal.vue';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { dashboard } from '@/routes';
@@ -51,6 +52,8 @@ defineOptions({
                 <PlaceholderPattern />
             </div>
         </div>
+        <OpenTasksMcpWidget />
+
         <div
             class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
         >

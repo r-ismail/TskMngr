@@ -12,6 +12,7 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('tasks', fn () => Inertia::render('Tasks'))->name('tasks.index');
+    Route::get('mcp', fn () => Inertia::render('Mcp'))->name('mcp.index');
 });
 
 Route::post('api/token', [AuthController::class, 'token'])
