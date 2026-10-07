@@ -1,12 +1,20 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Teams\TeamInvitationController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::inertia('/', 'Welcome')->name('home');
+
+Route::get('tasks', fn () => Inertia::render('Tasks'))->name('tasks.index');
+
+Route::post('api/token', [AuthController::class, 'token'])
+    ->middleware('auth')
+    ->name('api.token');
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])

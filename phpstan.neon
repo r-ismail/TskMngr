@@ -10,4 +10,8 @@ parameters:
         - database/
         - routes/
 
+    excludePaths:
+        # Published third-party configs: keep them byte-identical to upstream.
+        - config/sanctum.php
+
     level: 7

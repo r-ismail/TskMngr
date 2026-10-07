@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from '@lucide/vue';
+import {
+    BookOpen,
+    Folder,
+    LayoutGrid,
+    ListTodo,
+    Menu,
+    Search,
+} from '@lucide/vue';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
@@ -63,6 +70,11 @@ const mainNavItems = computed<NavItem[]>(() => [
         title: 'Dashboard',
         href: dashboardUrl.value,
         icon: LayoutGrid,
+    },
+    {
+        title: 'Tasks',
+        href: '/tasks',
+        icon: ListTodo,
     },
 ]);
 
