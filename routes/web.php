@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Teams\TeamInvitationController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('{current_team}/about',[AboutController::class, 'index'])->name('about.index');
+    Route::get('{current_team}/about', [AboutController::class, 'index'])->name('about.index');
 });
 
 require __DIR__.'/settings.php';

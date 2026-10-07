@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use illuminate\Http\Request;
+
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AboutController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('about/index');
     }
