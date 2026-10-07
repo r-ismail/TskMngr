@@ -134,51 +134,6 @@ export async function apiFetch<T>(
     return payload as T;
 }
 
-export async function login(
-    email: string,
-    password: string,
-): Promise<{ user: ApiUser; token: string }> {
-    const result = await apiFetch<{ user: ApiUser; token: string }>('/login', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-    });
-
-    setToken(result.token);
-
-    return result;
-}
-
-export async function register(
-    name: string,
-    email: string,
-    password: string,
-): Promise<{ user: ApiUser; token: string }> {
-    const result = await apiFetch<{ user: ApiUser; token: string }>(
-        '/register',
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                name,
-                email,
-                password,
-                password_confirmation: password,
-            }),
-        },
-    );
-
-    setToken(result.token);
-
-    return result;
-}
-
-export async function logout(): Promise<void> {
-    try {
-        await apiFetch<{ message: string }>('/logout', { method: 'POST' });
-    } finally {
-        clearToken();
-    }
-}
-
 export async function fetchUser(): Promise<ApiUser | null> {
     try {
         const result = await apiFetch<{ data: ApiUser }>('/user');

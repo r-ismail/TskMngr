@@ -3,7 +3,7 @@
 A task manager built on **Laravel 13** + **Vue 3 (Inertia)** with:
 
 - **Task CRUD API** protected by **Laravel Sanctum** (`auth:sanctum` bearer tokens)
-- **API-driven Vue frontend** (`/tasks` page calls `login`, `register`, list, create, update, delete)
+- **API-driven Vue frontend** (`/tasks` page — Fortify-gated — calls list, create, update, delete)
 - **MCP server** (`laravel/mcp`) exposing a `get-open-tasks` tool for AI clients
 - Existing app features: teams, invitations, roles, settings, 2FA (Fortify)
 
@@ -42,33 +42,38 @@ composer setup   # install + key + migrate + npm install + build
 
 ## Using the task manager
 
-1. Open `http://localhost:8000/tasks`.
-2. Register or log in — the page calls `POST /api/register` / `POST /api/login` and stores
-   the Sanctum token in `localStorage`.
-3. If you are already logged in through the web app, the page silently mints an API token
-   via `POST /api/token` so you do not need to log in twice.
+1. Log in normally through the Fortify login page (`/login`) or register at `/register`.
+2. Open `http://localhost:8000/tasks` — the route is protected by the `auth` middleware,
+   so guests are redirected to `/login` automatically.
+3. On load, the page silently exchanges the web session for an API token via `POST /api/token`
+   (no second login prompt) and fetches your user + tasks.
 4. Create, toggle, edit and delete tasks — all through `GET|POST|PUT|DELETE /api/tasks`.
+5. Log out from the usual header/sidebar menu (Fortify session logout); there is no
+   separate login/logout UI inside the tasks page.
+
+> The JSON endpoints `POST /api/login`, `POST /api/register` and `POST /api/logout` remain
+> available for API clients (curl, Postman, scripts) — they are not used by the tasks page.
 
 ## API reference
 
 Public:
 
-| Method | Endpoint        | Description                    |
-| ------ | --------------- | ------------------------------ |
-| POST   | `/api/register` | Register + receive API token   |
-| POST   | `/api/login`    | Log in + receive API token     |
+| Method | Endpoint        | Description                  |
+| ------ | --------------- | ---------------------------- |
+| POST   | `/api/register` | Register + receive API token |
+| POST   | `/api/login`    | Log in + receive API token   |
 
 Protected (`Authorization: Bearer <token>`):
 
-| Method     | Endpoint          | Description              |
-| ---------- | ----------------- | ------------------------ |
-| GET        | `/api/user`       | Current user             |
-| POST       | `/api/logout`     | Revoke current token     |
-| GET        | `/api/tasks`      | List own tasks           |
-| POST       | `/api/tasks`      | Create task              |
-| GET        | `/api/tasks/{id}` | Show own task            |
-| PUT/PATCH  | `/api/tasks/{id}` | Update own task          |
-| DELETE     | `/api/tasks/{id}` | Delete own task          |
+| Method    | Endpoint          | Description          |
+| --------- | ----------------- | -------------------- |
+| GET       | `/api/user`       | Current user         |
+| POST      | `/api/logout`     | Revoke current token |
+| GET       | `/api/tasks`      | List own tasks       |
+| POST      | `/api/tasks`      | Create task          |
+| GET       | `/api/tasks/{id}` | Show own task        |
+| PUT/PATCH | `/api/tasks/{id}` | Update own task      |
+| DELETE    | `/api/tasks/{id}` | Delete own task      |
 
 Web bridge (session auth):
 
@@ -180,4 +185,3 @@ structure instead of reworking the whole app from scratch.
 ## License
 
 This project is open-source and uses the MIT license.
-

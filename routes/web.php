@@ -10,7 +10,9 @@ use Inertia\Inertia;
 
 Route::inertia('/', 'Welcome')->name('home');
 
-Route::get('tasks', fn () => Inertia::render('Tasks'))->name('tasks.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('tasks', fn () => Inertia::render('Tasks'))->name('tasks.index');
+});
 
 Route::post('api/token', [AuthController::class, 'token'])
     ->middleware('auth')
